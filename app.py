@@ -19,6 +19,7 @@ df["Int_y"] = pd.to_numeric(df["Int_y"], errors='coerce')  # Rename for clarity
 # Initialize Dash app
 app = dash.Dash(__name__)
 app.title = "Rob Pastori's NFL 2024 Team Performance Dashboard"
+server = app.server  # <--- THIS is what Gunicorn needs to run
 
 # Layout
 app.layout = html.Div([
