@@ -1,4 +1,15 @@
-dash
-pandas
-plotly
+# Core
+streamlit==1.35.0
+pandas==2.2.2
+plotly==5.21.0
+
+# Sidebar menu
+streamlit-option-menu==0.3.6
+
+# Image handling
+Pillow==10.3.0
+
+# Optional for local dev, not needed for Streamlit Cloud
+# python-dotenv==1.0.1
+
 gunicorn
