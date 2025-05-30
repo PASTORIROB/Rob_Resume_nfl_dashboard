@@ -139,7 +139,8 @@ visualizations from raw trade data, effectively presenting metrics from complex 
 coworkers on advanced automation solutions and effectively communicate complex technical concepts to
 non-technical stakeholders using flowcharts and diagrams.
 
-● Issue Resolution: Independently drove initiatives, diagnosed complex issues, and implem
+● Issue Resolution: Independently drove initiatives, diagnosed complex issues, and implemented effective resolution
+strategies, maintaining robust data frameworks and ensuring completion of objectives
 """)
 
     st.write("\n")
