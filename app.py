@@ -18,7 +18,7 @@ PAGE_TITLE = "Rob Pastori | Digital Resume & NFL Project"
 PAGE_ICON = ":football:"
 NAME = "Robert Pastori"
 
-DESCRIPTION = "Data Analyst obsessed with Automation, and building dashboards (click arrow to find NFL Dashboard Project)"
+DESCRIPTION = "Data Analyst obsessed with Automation, and building dashboards"
 EMAIL = "PastoriRob@gmail.com"
 
 # --- SOCIAL MEDIA ---
