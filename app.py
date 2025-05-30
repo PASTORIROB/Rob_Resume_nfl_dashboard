@@ -68,7 +68,7 @@ with st.sidebar:
 
     selected = option_menu(
         menu_title="",
-        options=["Rob's Digital Resume", "NFL Project"],
+        options=["Rob's Digital Resume", "NFL Project - 2024 Stats"],
         icons=["person-badge-fill", "bar-chart-line-fill"],
         menu_icon="cast",
         default_index=0
@@ -184,7 +184,7 @@ daily workflows and effectively explaining cash and equity breaks to auditors du
         st.write(f"[{project}]({link})")
 
 # --- NFL DASHBOARD PAGE ---
-if selected == "NFL Project":
+if selected == "NFL Project - 2024 Stats":
     import plotly.express as px
 
     df = pd.read_csv(data_file)
