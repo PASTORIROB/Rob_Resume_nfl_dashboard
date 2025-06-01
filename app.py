@@ -115,32 +115,32 @@ if selected == "Rob's Digital Resume":
     st.write("---")
     st.write("🚧 **Business Technical Liaison Senior Analyst | BNY Mellon – Pershing**")
     st.write("03/2022 - Present")
-    st.write("""● Stakeholder Collaboration: Collaborated with Directors, Product Owners and end-users, leveraging 10+ years of
-financial markets expertise to elicit comprehensive functional and data requirements, facilitating seamless technical
-solution development.
+    st.write("""● Stakeholder Collaboration: Collaborated with Directors, Product Owners, and end-users, drawing upon over a
+decade of financial markets expertise to identify comprehensive functional and data requirements. This collaboration
+facilitated seamless technical solution development.
 
-● Data Transformation & Analysis: Expertly collected, synthesized, and transformed complex markets operations data
-using Python scripting, ensuring data integrity and reliability for critical business insights.
+● Reporting and Visualization: Utilized SQL and other ETL tools to develop sophisticated ad-hoc reports from raw trade
+data. Subsequently, these reports were transformed into daily refreshable Tableau/Power BI visualizations, effectively
+presenting key metrics to Directors.
 
-● Automation & Efficiency: Developed and implemented daily automations, including a Python script to monitor
-reports and a reconciliation process for vendor data, saving the firm hundreds of thousands of dollars by verifying fee
-accuracy.
+● Data Transformation & Analysis: Expertly curated, synthesized, and transformed intricate market operations data
+through Python scripting, guaranteeing data integrity and reliability for pivotal business insights.
 
-● Prompt Engineering: Leveraged AI to build innovative solutions for trading teams, directly contributing to increased
-operational efficiency, reduced manual errors, and more precise business insights and reporting.
+● Automation and Efficiency: Developed and implemented business-critical automations that enabled the Compliance
+team to meet stringent deadlines.
 
 ● RPA & Workflow Optimization: Designed and deployed UiPath Studio Pro robots and MS Power Automate flows
-(using TypeScript), yielding hundreds of hours of time savings and significantly reducing data entry errors.
-
-● Reporting & Visualization: Constructed sophisticated ad-hoc reports using SQL and Python, and created Power BI
-visualizations from raw trade data, effectively presenting metrics from complex financial instruments to Directors.
+yielding hundreds of hours of time savings and significantly reducing data entry errors.
 
 ● Technical Leadership: Served as the in-house MS Excel expert, building macros and custom pivot tables. Mentored
 coworkers on advanced automation solutions and effectively communicate complex technical concepts to
 non-technical stakeholders using flowcharts and diagrams.
 
 ● Issue Resolution: Independently drove initiatives, diagnosed complex issues, and implemented effective resolution
-strategies, maintaining robust data frameworks and ensuring completion of objectives
+strategies, maintaining robust data frameworks and ensuring completion of objectives.
+
+● Prompt Engineering: Leveraged AI to build innovative solutions for trading teams, directly contributing to increased
+operational efficiency, reduced manual errors, and more precise business insights and reporting.
 """)
 
     st.write("\n")
@@ -162,7 +162,8 @@ processing, matching, and reconciliation, ensuring accuracy and timeliness.
 ● Data Optimization: Constructed macros to optimize datasets for efficient upload, meticulously reconciling shares and
 cash related to DTC CNS via the PNS account.
 
-● Audit & Compliance: Led quarterly and yearly presentations on reporting procedures.
+● Audit & Compliance: Led quarterly and yearly presentations on reporting procedures and results to both internal and
+external auditors, demonstrating strong communication and compliance adherence.
 """)
 
     st.write("\n")
