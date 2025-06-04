@@ -107,7 +107,7 @@ if selected == "Rob's Digital Resume":
     st.write("""
 - 👨‍💻 Python, SQL, VBA, TypeScript
 - 📊 Tableau, Power BI, Excel, Plotly
-- 🗄️ Oracle, MySQL, MS Access
+- 🗄️ Oracle, MySQL, PostgreSQL, MS Access
 - 🤖 UiPath, Power Automate, n8n, Automation Anywhere
 """)
 
