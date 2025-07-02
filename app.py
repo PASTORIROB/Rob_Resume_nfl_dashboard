@@ -109,9 +109,11 @@ if selected == "Rob's Digital Resume":
     st.subheader("Hard Skills")
     st.write("""
 - 👨‍💻 Python, SQL, VBA, TypeScript
-- 📊 Tableau, Power BI, Excel, Plotly
+- 📊 Tableau, Power BI, Plotly
 - 🗄️ Oracle, MySQL, PostgreSQL, MS Access
 - 🤖 UiPath, Power Automate, n8n, Automation Anywhere
+- 💻 MS Excel, MS Power Query, MS Access, MS Visual Studio Code, MS SharePoint, MS Visio, MS PowerPoint, MS Teams
+- 📌 JIRA, Confluence, Agile, Waterfall, Sharepoint, Miro
 """)
 
     st.subheader("Work History")
