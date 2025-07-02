@@ -261,26 +261,35 @@ if selected == "Portfolio VAR Calculator":
         returns = stock_data.pct_change().dropna()
         return returns
 
-    def monte_carlo_simulation(returns, confidence_level, num_simulations, time_horizon, weights, portfolio_value):
+    def monte_carlo_simulation_paths(returns, num_simulations, time_horizon, weights, portfolio_value):
         mean_returns = returns.mean()
         cov_matrix = returns.cov()
+        num_assets = len(returns.columns)
 
-        simulated_returns = np.random.multivariate_normal(mean_returns, cov_matrix, num_simulations)
-        weighted_returns = np.dot(simulated_returns, weights)
-        cumulative_returns = (1 + weighted_returns) ** time_horizon - 1
+        dt = 1  # 1 day
+        mean_matrix = np.full((time_horizon, num_assets), mean_returns.values)
+        chol_cov_matrix = np.linalg.cholesky(cov_matrix)
 
-        var = np.percentile(cumulative_returns, (1 - confidence_level) * 100)
-        cvar = np.mean(cumulative_returns[cumulative_returns <= var])
+        simulation_paths = []
+        for _ in range(num_simulations):
+            Z = np.random.normal(size=(time_horizon, num_assets))
+            correlated_randomness = Z @ chol_cov_matrix.T
+            returns_path = mean_matrix + correlated_randomness
+            portfolio_returns = returns_path @ weights
+            portfolio_values = [portfolio_value]
+            for r in portfolio_returns:
+                portfolio_values.append(portfolio_values[-1] * (1 + r))
+            simulation_paths.append(portfolio_values[1:])  # Exclude the initial value
 
-        return cumulative_returns, var * portfolio_value, cvar * portfolio_value
+        return np.array(simulation_paths)
 
-    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL")
+    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL,BK,HOOD")
     tickers = [ticker.strip().upper() for ticker in tickers.split(",") if ticker.strip()]
 
     start_date = st.date_input("Start Date", pd.to_datetime("2020-01-01"))
     end_date = st.date_input("End Date", pd.to_datetime("2024-01-01"))
-    confidence_level = st.slider("Confidence Level", min_value=0.80, max_value=0.99, value=0.95, step=0.01)
-    num_simulations = st.number_input("Number of Monte Carlo Simulations", min_value=1000, max_value=500000, value=100000, step=1000)
+    num_simulations = st.number_input("Number of Monte Carlo Simulations", min_value=10, max_value=1000, value=100, step=10)
+    time_horizon = st.number_input("Simulation Days", min_value=1, max_value=252, value=30, step=1)
     portfolio_value = st.number_input("Portfolio Value ($)", min_value=1000, value=10000, step=500)
 
     st.subheader("Portfolio Allocation (%)")
@@ -293,29 +302,26 @@ if selected == "Portfolio VAR Calculator":
 
     if total_weight != 100:
         st.error("Total allocation must sum to 100%.")
-    elif st.button("Run VAR Simulation"):
+    elif st.button("Run Monte Carlo Simulations"):
         stock_data = get_stock_data(tickers, start_date, end_date)
         returns = calculate_returns(stock_data)
-        cumulative_returns, var_cash, cvar_cash = monte_carlo_simulation(
-            returns, confidence_level, num_simulations, 1, weights, portfolio_value
-        )
-
-        value_changes = cumulative_returns * portfolio_value
+        sim_paths = monte_carlo_simulation_paths(returns, num_simulations, time_horizon, np.array(weights), portfolio_value)
 
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=value_changes, nbinsx=100, marker_color="lightskyblue", name="Simulated Portfolio Outcomes"))
-        fig.add_vline(x=var_cash, line=dict(color="red", dash="dash"), name="VaR")
-        fig.add_vline(x=cvar_cash, line=dict(color="orange", dash="dash"), name="CVaR")
+        for i in range(min(200, num_simulations)):  # Limit to 200 lines for readability
+            fig.add_trace(go.Scatter(
+                y=sim_paths[i],
+                mode='lines',
+                line=dict(width=1),
+                name=f"Sim {i+1}",
+                showlegend=False
+            ))
 
         fig.update_layout(
-            title="Monte Carlo Simulation of Portfolio Returns",
-            xaxis_title="Portfolio Value Change ($)",
-            yaxis_title="Frequency",
+            title="Monte Carlo Simulated Portfolio Value Paths",
+            xaxis_title="Days",
+            yaxis_title="Portfolio Value ($)",
             showlegend=False
         )
-
         st.plotly_chart(fig, use_container_width=True)
-
-        st.success(f"💸 Value at Risk (VaR): -${abs(var_cash):,.2f}")
-        st.warning(f"📉 Conditional VaR (CVaR): -${abs(cvar_cash):,.2f}")
 
