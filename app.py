@@ -2,10 +2,7 @@ import os
 from pathlib import Path
 import pandas as pd
 from PIL import Image
-import yfinance as yf
-    
-import numpy as np
-from scipy.stats import norm
+
 import streamlit as st
 from streamlit_option_menu import option_menu
 
@@ -244,6 +241,10 @@ if selected == "NFL Project - 2024 Stats":
 
 # --- Portfolio VAR Calculator ---
 elif selected == "Portfolio VAR Calculator":
+    import yfinance as yf
+    import numpy as np
+    from scipy.stats import norm
+    
     st.title("📉 Portfolio Value at Risk (VaR) Calculator")
     st.write("Simulate potential portfolio losses using Monte Carlo simulations.")
 
