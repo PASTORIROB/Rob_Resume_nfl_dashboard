@@ -17,7 +17,7 @@ profile_pic = current_dir / "assets" / "testrp.jpg"
 data_file = current_dir / "Merged_NFL_Data.csv"
 
 # --- GENERAL SETTINGS ---
-PAGE_TITLE = "Rob Pastori | Digital Resume & NFL Project"
+PAGE_TITLE = "Rob Pastori | Digital Resume & NFL Project & Portfolio VAR Calculator"
 PAGE_ICON = ":football:"
 NAME = "Robert Pastori"
 
