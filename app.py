@@ -240,7 +240,7 @@ if selected == "NFL Project - 2024 Stats":
 
 
 # --- Portfolio VAR Calculator ---
-elif selected == "Portfolio VAR Calculator":
+if selected == "Portfolio VAR Calculator":
     import yfinance as yf
     import numpy as np
     from scipy.stats import norm
