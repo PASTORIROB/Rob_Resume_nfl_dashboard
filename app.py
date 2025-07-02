@@ -290,7 +290,7 @@ if selected == "Portfolio VAR Calculator":
 
         return np.array(simulation_paths), final_returns * portfolio_value, var * portfolio_value, cvar * portfolio_value
 
-    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL,META,HOOD,BK")
+    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "SPY,NVDA,PLTR,PEP,AAPL,MSFT,GOOGL,META,HOOD,BK")
     tickers = [ticker.strip().upper() for ticker in tickers.split(",") if ticker.strip()]
 
     start_date = st.date_input("Start Date", pd.to_datetime("2022-01-01"))
