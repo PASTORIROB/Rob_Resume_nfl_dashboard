@@ -245,10 +245,10 @@ if selected == "Portfolio VAR Calculator":
     import numpy as np
     from scipy.stats import norm
     
+    import plotly.graph_objects as go
+
     st.title("📉 Portfolio Value at Risk (VaR) Calculator")
     st.write("Simulate potential portfolio losses using Monte Carlo simulations.")
-
-
 
     def get_stock_data(tickers, start_date, end_date):
         stock_data = pd.DataFrame()
@@ -261,20 +261,18 @@ if selected == "Portfolio VAR Calculator":
         returns = stock_data.pct_change().dropna()
         return returns
 
-    def monte_carlo_simulation(returns, confidence_level, num_simulations, time_horizon, weights):
+    def monte_carlo_simulation(returns, confidence_level, num_simulations, time_horizon, weights, portfolio_value):
         mean_returns = returns.mean()
         cov_matrix = returns.cov()
-        portfolio_value = 1  # Normalize to 1 unit
 
-        # Generate random returns
         simulated_returns = np.random.multivariate_normal(mean_returns, cov_matrix, num_simulations)
         weighted_returns = np.dot(simulated_returns, weights)
-
-        # Adjust for time horizon
         cumulative_returns = (1 + weighted_returns) ** time_horizon - 1
+
         var = np.percentile(cumulative_returns, (1 - confidence_level) * 100)
         cvar = np.mean(cumulative_returns[cumulative_returns <= var])
-        return var * portfolio_value, cvar * portfolio_value
+
+        return cumulative_returns, var * portfolio_value, cvar * portfolio_value
 
     tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL")
     tickers = [ticker.strip().upper() for ticker in tickers.split(",") if ticker.strip()]
@@ -283,6 +281,7 @@ if selected == "Portfolio VAR Calculator":
     end_date = st.date_input("End Date", pd.to_datetime("2024-01-01"))
     confidence_level = st.slider("Confidence Level", min_value=0.80, max_value=0.99, value=0.95, step=0.01)
     num_simulations = st.number_input("Number of Monte Carlo Simulations", min_value=1000, max_value=500000, value=100000, step=1000)
+    portfolio_value = st.number_input("Portfolio Value ($)", min_value=1000, value=10000, step=500)
 
     st.subheader("Portfolio Allocation (%)")
     weights = []
@@ -297,6 +296,26 @@ if selected == "Portfolio VAR Calculator":
     elif st.button("Run VAR Simulation"):
         stock_data = get_stock_data(tickers, start_date, end_date)
         returns = calculate_returns(stock_data)
-        var, cvar = monte_carlo_simulation(returns, confidence_level, num_simulations, 1, weights)
-        st.success(f"Value at Risk (VaR): -${var:,.2f}")
-        st.warning(f"Conditional VaR (CVaR): -${cvar:,.2f}")
+        cumulative_returns, var_cash, cvar_cash = monte_carlo_simulation(
+            returns, confidence_level, num_simulations, 1, weights, portfolio_value
+        )
+
+        value_changes = cumulative_returns * portfolio_value
+
+        fig = go.Figure()
+        fig.add_trace(go.Histogram(x=value_changes, nbinsx=100, marker_color="lightskyblue", name="Simulated Portfolio Outcomes"))
+        fig.add_vline(x=var_cash, line=dict(color="red", dash="dash"), name="VaR")
+        fig.add_vline(x=cvar_cash, line=dict(color="orange", dash="dash"), name="CVaR")
+
+        fig.update_layout(
+            title="Monte Carlo Simulation of Portfolio Returns",
+            xaxis_title="Portfolio Value Change ($)",
+            yaxis_title="Frequency",
+            showlegend=False
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+        st.success(f"💸 Value at Risk (VaR): -${abs(var_cash):,.2f}")
+        st.warning(f"📉 Conditional VaR (CVaR): -${abs(cvar_cash):,.2f}")
+
