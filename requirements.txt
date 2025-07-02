@@ -9,6 +9,11 @@ streamlit-option-menu==0.3.6
 # Image handling
 Pillow==10.3.0
 
+yfinance
+numpy
+scipy
+
+
 # Optional for local dev, not needed for Streamlit Cloud
 # python-dotenv==1.0.1
 
