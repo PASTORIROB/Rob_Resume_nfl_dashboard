@@ -234,3 +234,66 @@ if selected == "NFL Project - 2024 Stats":
         Data courtesy of <a href=\"https://www.pro-football-reference.com/years/2024/#site_menu_link\" target=\"_blank\">Sports Reference</a>
     </div>
     """, unsafe_allow_html=True)
+
+
+
+# --- Portfolio VAR Calculator ---
+elif selected == "Portfolio VAR Calculator":
+    st.title("📉 Portfolio Value at Risk (VaR) Calculator")
+    st.write("Simulate potential portfolio losses using Monte Carlo simulations.")
+
+    import yfinance as yf
+    import pandas as pd
+    import numpy as np
+    from scipy.stats import norm
+
+    def get_stock_data(tickers, start_date, end_date):
+        stock_data = pd.DataFrame()
+        for ticker in tickers:
+            data = yf.download(ticker, start=start_date, end=end_date)
+            stock_data[ticker] = data['Close']
+        return stock_data
+
+    def calculate_returns(stock_data):
+        returns = stock_data.pct_change().dropna()
+        return returns
+
+    def monte_carlo_simulation(returns, confidence_level, num_simulations, time_horizon, weights):
+        mean_returns = returns.mean()
+        cov_matrix = returns.cov()
+        portfolio_value = 1  # Normalize to 1 unit
+
+        # Generate random returns
+        simulated_returns = np.random.multivariate_normal(mean_returns, cov_matrix, num_simulations)
+        weighted_returns = np.dot(simulated_returns, weights)
+
+        # Adjust for time horizon
+        cumulative_returns = (1 + weighted_returns) ** time_horizon - 1
+        var = np.percentile(cumulative_returns, (1 - confidence_level) * 100)
+        cvar = np.mean(cumulative_returns[cumulative_returns <= var])
+        return var * portfolio_value, cvar * portfolio_value
+
+    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL")
+    tickers = [ticker.strip().upper() for ticker in tickers.split(",") if ticker.strip()]
+
+    start_date = st.date_input("Start Date", pd.to_datetime("2020-01-01"))
+    end_date = st.date_input("End Date", pd.to_datetime("2024-01-01"))
+    confidence_level = st.slider("Confidence Level", min_value=0.80, max_value=0.99, value=0.95, step=0.01)
+    num_simulations = st.number_input("Number of Monte Carlo Simulations", min_value=1000, max_value=500000, value=100000, step=1000)
+
+    st.subheader("Portfolio Allocation (%)")
+    weights = []
+    total_weight = 0
+    for ticker in tickers:
+        weight = st.slider(f"{ticker} Allocation %", 0, 100, 100 // len(tickers))
+        weights.append(weight / 100)
+        total_weight += weight
+
+    if total_weight != 100:
+        st.error("Total allocation must sum to 100%.")
+    elif st.button("Run VAR Simulation"):
+        stock_data = get_stock_data(tickers, start_date, end_date)
+        returns = calculate_returns(stock_data)
+        var, cvar = monte_carlo_simulation(returns, confidence_level, num_simulations, 1, weights)
+        st.success(f"Value at Risk (VaR): -${var:,.2f}")
+        st.warning(f"Conditional VaR (CVaR): -${cvar:,.2f}")
