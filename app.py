@@ -21,7 +21,7 @@ PAGE_TITLE = "Rob Pastori | Digital Resume & NFL Project & Portfolio VAR Calcula
 PAGE_ICON = ":football:"
 NAME = "Robert Pastori"
 
-DESCRIPTION = "Data Analyst obsessed with Automation, and building dashboards"
+DESCRIPTION = "Problem solver at heart—specializing in data analytics, automation, and building tools that save time and uncover value"
 EMAIL = "PastoriRob@gmail.com"
 
 # --- SOCIAL MEDIA ---
@@ -120,7 +120,7 @@ if selected == "Rob's Digital Resume":
     st.write("---")
     st.write("🚧 **Business Technical Liaison Senior Analyst | BNY Mellon – Pershing**")
     st.write("03/2022 - Present")
-    st.write("""● Stakeholder Collaboration: Collaborated with Directors, Product Owners, and end-users, drawing upon over a
+    st.write("""● Stakeholder Collaboration: Collaborated with Directors, Product Owners, and end-users drawing upon over a
 decade of financial markets expertise to identify comprehensive functional and data requirements. This collaboration
 facilitated seamless technical solution development.
 
