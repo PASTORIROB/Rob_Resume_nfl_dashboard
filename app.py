@@ -290,11 +290,11 @@ if selected == "Portfolio VAR Calculator":
 
         return np.array(simulation_paths), final_returns * portfolio_value, var * portfolio_value, cvar * portfolio_value
 
-    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL")
+    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL,META,HOOD,BK")
     tickers = [ticker.strip().upper() for ticker in tickers.split(",") if ticker.strip()]
 
-    start_date = st.date_input("Start Date", pd.to_datetime("2020-01-01"))
-    end_date = st.date_input("End Date", pd.to_datetime("2024-01-01"))
+    start_date = st.date_input("Start Date", pd.to_datetime("2022-01-01"))
+    end_date = st.date_input("End Date", pd.to_datetime("2025-01-01"))
     num_simulations = st.number_input("Number of Monte Carlo Simulations", min_value=10, max_value=1000, value=100, step=10)
     time_horizon = st.number_input("Simulation Days", min_value=1, max_value=252, value=30, step=1)
     portfolio_value = st.number_input("Portfolio Value ($)", min_value=1000, value=10000, step=500)
