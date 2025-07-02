@@ -71,7 +71,7 @@ with st.sidebar:
 
     selected = option_menu(
         menu_title="",
-        options=["Rob's Digital Resume", "NFL Project - 2024 Stats"],
+        options=["Rob's Digital Resume", "NFL Project - 2024 Stats","Portfolio VAR Calculator"],
         icons=["person-badge-fill", "bar-chart-line-fill"],
         menu_icon="cast",
         default_index=0
