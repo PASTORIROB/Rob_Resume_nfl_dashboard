@@ -247,6 +247,7 @@ if selected == "Portfolio VAR Calculator":
     
     import plotly.graph_objects as go
 
+
     st.title("📉 Portfolio Value at Risk (VaR) Calculator")
     st.write("Simulate potential portfolio losses using Monte Carlo simulations.")
 
@@ -266,11 +267,12 @@ if selected == "Portfolio VAR Calculator":
         cov_matrix = returns.cov()
         num_assets = len(returns.columns)
 
-        dt = 1  # 1 day
+        dt = 1
         mean_matrix = np.full((time_horizon, num_assets), mean_returns.values)
         chol_cov_matrix = np.linalg.cholesky(cov_matrix)
 
         simulation_paths = []
+        final_returns = []
         for _ in range(num_simulations):
             Z = np.random.normal(size=(time_horizon, num_assets))
             correlated_randomness = Z @ chol_cov_matrix.T
@@ -279,11 +281,16 @@ if selected == "Portfolio VAR Calculator":
             portfolio_values = [portfolio_value]
             for r in portfolio_returns:
                 portfolio_values.append(portfolio_values[-1] * (1 + r))
-            simulation_paths.append(portfolio_values[1:])  # Exclude the initial value
+            simulation_paths.append(portfolio_values[1:])
+            final_returns.append((portfolio_values[-1] - portfolio_value) / portfolio_value)
 
-        return np.array(simulation_paths)
+        final_returns = np.array(final_returns)
+        var = np.percentile(final_returns, 5)
+        cvar = np.mean(final_returns[final_returns <= var])
 
-    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL,BK,HOOD")
+        return np.array(simulation_paths), final_returns * portfolio_value, var * portfolio_value, cvar * portfolio_value
+
+    tickers = st.text_input("Enter stock tickers separated by commas (e.g., AAPL,MSFT,GOOGL):", "AAPL,MSFT,GOOGL")
     tickers = [ticker.strip().upper() for ticker in tickers.split(",") if ticker.strip()]
 
     start_date = st.date_input("Start Date", pd.to_datetime("2020-01-01"))
@@ -305,11 +312,14 @@ if selected == "Portfolio VAR Calculator":
     elif st.button("Run Monte Carlo Simulations"):
         stock_data = get_stock_data(tickers, start_date, end_date)
         returns = calculate_returns(stock_data)
-        sim_paths = monte_carlo_simulation_paths(returns, num_simulations, time_horizon, np.array(weights), portfolio_value)
+        sim_paths, final_cash_changes, var_cash, cvar_cash = monte_carlo_simulation_paths(
+            returns, num_simulations, time_horizon, np.array(weights), portfolio_value
+        )
 
-        fig = go.Figure()
-        for i in range(min(200, num_simulations)):  # Limit to 200 lines for readability
-            fig.add_trace(go.Scatter(
+        # Chart 1: Stacked line chart of all simulations
+        fig1 = go.Figure()
+        for i in range(min(200, num_simulations)):
+            fig1.add_trace(go.Scatter(
                 y=sim_paths[i],
                 mode='lines',
                 line=dict(width=1),
@@ -317,11 +327,33 @@ if selected == "Portfolio VAR Calculator":
                 showlegend=False
             ))
 
-        fig.update_layout(
+        fig1.update_layout(
             title="Monte Carlo Simulated Portfolio Value Paths",
             xaxis_title="Days",
             yaxis_title="Portfolio Value ($)",
             showlegend=False
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig1, use_container_width=True)
+
+        # Chart 2: Histogram of ending values
+        fig2 = go.Figure()
+        fig2.add_trace(go.Histogram(
+            x=final_cash_changes,
+            nbinsx=100,
+            marker_color="lightskyblue",
+            name="Final Portfolio Changes"
+        ))
+        fig2.add_vline(x=var_cash, line=dict(color="red", dash="dash"), name="VaR")
+        fig2.add_vline(x=cvar_cash, line=dict(color="orange", dash="dash"), name="CVaR")
+
+        fig2.update_layout(
+            title="Histogram of Ending Portfolio Value Changes",
+            xaxis_title="Change in Portfolio Value ($)",
+            yaxis_title="Frequency",
+            showlegend=False
+        )
+        st.plotly_chart(fig2, use_container_width=True)
+
+        st.success(f"💸 Value at Risk (VaR): -${abs(var_cash):,.2f}")
+        st.warning(f"📉 Conditional VaR (CVaR): -${abs(cvar_cash):,.2f}")
 
