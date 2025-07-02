@@ -262,9 +262,10 @@ if selected == "Portfolio VAR Calculator":
         returns = stock_data.pct_change().dropna()
         return returns
 
-    def monte_carlo_simulation_paths(returns, num_simulations, time_horizon, weights, portfolio_value):
+    def monte_carlo_simulation_paths(returns, num_simulations, time_horizon, weights, portfolio_value, volatility_multiplier=1.0):
         mean_returns = returns.mean()
         cov_matrix = returns.cov()
+        cov_matrix *= volatility_multiplier 
         num_assets = len(returns.columns)
 
         dt = 1
@@ -298,7 +299,7 @@ if selected == "Portfolio VAR Calculator":
     num_simulations = st.number_input("Number of Monte Carlo Simulations", min_value=10, max_value=1000, value=100, step=10)
     time_horizon = st.number_input("Simulation Days", min_value=1, max_value=252, value=30, step=1)
     portfolio_value = st.number_input("Portfolio Value ($)", min_value=1000, value=10000, step=500)
-
+    volatility_multiplier = st.slider("Volatility Multiplier", 0.5, 5.0, 1.0, step=0.1)
     st.subheader("Portfolio Allocation (%)")
     weights = []
     total_weight = 0
