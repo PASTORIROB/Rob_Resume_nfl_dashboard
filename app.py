@@ -2,7 +2,10 @@ import os
 from pathlib import Path
 import pandas as pd
 from PIL import Image
-
+import yfinance as yf
+    
+import numpy as np
+from scipy.stats import norm
 import streamlit as st
 from streamlit_option_menu import option_menu
 
@@ -242,10 +245,7 @@ elif selected == "Portfolio VAR Calculator":
     st.title("📉 Portfolio Value at Risk (VaR) Calculator")
     st.write("Simulate potential portfolio losses using Monte Carlo simulations.")
 
-    import yfinance as yf
-    import pandas as pd
-    import numpy as np
-    from scipy.stats import norm
+
 
     def get_stock_data(tickers, start_date, end_date):
         stock_data = pd.DataFrame()
