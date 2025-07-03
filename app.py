@@ -248,7 +248,7 @@ if selected == "Portfolio VAR Calculator":
     import plotly.graph_objects as go
 
 
-    st.title("📉 Portfolio Value at Risk (VaR) Calculator")
+    st.title("📉 Rob Pastori's Portfolio Value at Risk (VaR) Calculator")
     st.write("Simulate potential portfolio losses using Monte Carlo simulations.")
 
     def get_stock_data(tickers, start_date, end_date):
