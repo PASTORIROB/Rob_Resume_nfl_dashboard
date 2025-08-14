@@ -7,7 +7,12 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import streamlit.components.v1 as components
 
+PAGE_TITLE = "Rob Pastori" # Assuming you have these defined elsewhere
+PAGE_ICON = "📊" # Assuming you have these defined elsewhere
 
+
+# --- THIS MUST BE THE FIRST STREAMLIT COMMAND ---
+st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON, layout="wide")
 
 def inject_ga():
     # Your Google Analytics Measurement ID (starts with 'G-')
