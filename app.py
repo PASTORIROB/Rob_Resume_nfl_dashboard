@@ -20,7 +20,7 @@ st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON, layout="wide")
 def inject_ga():
     # Your Google Analytics Measurement ID (starts with 'G-')
     GA_MEASUREMENT_ID = "G-WLP3VDCMGF" # Replace with your actual ID
-    """Injects Google Analytics Gtag script into the Streamlit app."""
+    #"""Injects Google Analytics Gtag script into the Streamlit app."""
     GA_CODE = f"""
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"></script>
