@@ -7,13 +7,16 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import streamlit.components.v1 as components
 
-PAGE_TITLE = "Rob Pastori" # Assuming you have these defined elsewhere
-PAGE_ICON = "📊" # Assuming you have these defined elsewhere
+#PAGE_TITLE = "Rob Pastori" # Assuming you have these defined elsewhere
+#PAGE_ICON = "📊" # Assuming you have these defined elsewhere
 
-
+# --- GENERAL SETTINGS ---
+PAGE_TITLE = "Rob Pastori | Digital Resume & NFL Project & Portfolio VAR Calculator"
+PAGE_ICON = ":football:"
 # --- THIS MUST BE THE FIRST STREAMLIT COMMAND ---
 st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON, layout="wide")
-
+# --- STREAMLIT SETTINGS ---
+#st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON)
 def inject_ga():
     # Your Google Analytics Measurement ID (starts with 'G-')
     GA_MEASUREMENT_ID = "G-WLP3VDCMGF" # Replace with your actual ID
@@ -39,9 +42,7 @@ resume_file = current_dir / "assets" / "CV.pdf"
 profile_pic = current_dir / "assets" / "testrp.jpg"
 data_file = current_dir / "Merged_NFL_Data.csv"
 
-# --- GENERAL SETTINGS ---
-PAGE_TITLE = "Rob Pastori | Digital Resume & NFL Project & Portfolio VAR Calculator"
-PAGE_ICON = ":football:"
+
 NAME = "Robert Pastori"
 
 DESCRIPTION = "Problem solver at heart—specializing in data analytics, automation, and building tools that save time and uncover value"
@@ -59,8 +60,7 @@ PROJECTS = {
     "🏆 Finance BS from University of Central Florida": "https://ucf.edu",
 }
 
-# --- STREAMLIT SETTINGS ---
-st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON)
+
 
 with open(css_file) as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
