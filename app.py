@@ -7,10 +7,11 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import streamlit.components.v1 as components
 
-# Your Google Analytics Measurement ID (starts with 'G-')
-GA_MEASUREMENT_ID = "G-WLP3VDCMGF" # Replace with your actual ID
+
 
 def inject_ga():
+    # Your Google Analytics Measurement ID (starts with 'G-')
+    GA_MEASUREMENT_ID = "G-WLP3VDCMGF" # Replace with your actual ID
     """Injects Google Analytics Gtag script into the Streamlit app."""
     GA_CODE = f"""
     <!-- Google tag (gtag.js) -->
