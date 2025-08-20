@@ -52,12 +52,13 @@ EMAIL = "PastoriRob@gmail.com"
 SOCIAL_MEDIA = {
     "LinkedIn": "https://www.linkedin.com/in/rpastori/",
     "GitHub": "https://github.com/PASTORIROB",
+    "Tableau": "https://public.tableau.com/app/profile/robert.pastori/viz/CarSizebyBrand/Dashboard1?publish=yes"
 }
 
 PROJECTS = {
     "🏆 FINRA Series 7": "https://brokercheck.finra.org/individual/summary/6603334",
     "🏆 MBA from University of Central Florida": "https://ucf.edu",
-    "🏆 Finance BS from University of Central Florida": "https://ucf.edu",
+    "🏆 Bachelor of Science - Finance  from University of Central Florida": "https://ucf.edu",
 }
 
 
@@ -132,43 +133,44 @@ if selected == "Rob's Digital Resume":
     st.subheader("Hard Skills")
     st.write("""
 - 👨‍💻 Python, SQL, VBA, TypeScript
-- 📊 Tableau, Power BI, Plotly
-- 🗄️ Oracle, MySQL, PostgreSQL, MS Access
-- 🤖 UiPath, Power Automate, n8n, Automation Anywhere
-- 💻 MS Excel, MS Power Query, MS Access, MS Visual Studio Code, MS SharePoint, MS Visio, MS PowerPoint, MS Teams
+- 📊 Tableau, Power BI, Seaborn, Plotly, Matplotlib
+- 🗄️ Oracle, SQL Server, MySQL, PostgreSQL
+- 🤖 UiPath, Power Automate, Automation Anywhere
+- 💻 MS Excel, MS Power Query, MS Access, MS Visual Studio Code, MS SharePoint, MS Visio
 - 📌 JIRA, Confluence, Agile, Waterfall, Sharepoint, Miro
 """)
 
     st.subheader("Work History")
     st.write("---")
-    st.write("🚧 **Business Technical Liaison Senior Analyst | BNY Mellon – Pershing**")
+    st.write("🚧 **Business Technical Liaison Senior Associate | BNY Mellon – Pershing**")
     st.write("03/2022 - Present")
-    st.write("""● Stakeholder Collaboration: Collaborated with Directors, Product Owners, and end-users drawing upon over a
-decade of financial markets expertise to identify comprehensive functional and data requirements. This collaboration
-facilitated seamless technical solution development.
+    st.write("""● Stakeholder Collaboration: Collaborated with Directors, Product Owners, Finance, Engineering and end-users, drawing upon over a decade of financial markets expertise to identify comprehensive functional and data requirements. This collaboration facilitated seamless technical solution development for the Global Markets Trading team.
 
-● Reporting and Visualization: Utilized SQL and other ETL tools to develop sophisticated ad-hoc reports from raw trade
-data. Subsequently, these reports were transformed into daily refreshable Tableau/Power BI visualizations, effectively
-presenting key metrics to Directors.
+● Project Management: Decomposed complex epics into actionable features and user stories, capturing detailed functional and nonfunctional requirements in Agile environments.  Led solution demonstrations to product ownership teams, highlighting delivered user stories and representing the solution owner in backlog prioritization, sprint planning, and UAT.
 
-● Data Transformation & Analysis: Expertly curated, synthesized, and transformed intricate market operations data
-through Python scripting, guaranteeing data integrity and reliability for pivotal business insights.
+● Reporting and Visualization: Utilized SQL and other ETL tools to develop sophisticated ad-hoc reports from raw trade data. Subsequently, these reports were transformed into daily refreshable Tableau/Power BI visualizations, effectively presenting key metrics to Directors.
 
-● Automation and Efficiency: Developed and implemented business-critical automations that enabled the Compliance
-team to meet stringent deadlines.
+● Models: Created risk and forecasting models to support long-term infrastructure decisions, driving operational rigor and improved budget visibility.
 
-● RPA & Workflow Optimization: Designed and deployed UiPath Studio Pro robots and MS Power Automate flows
-yielding hundreds of hours of time savings and significantly reducing data entry errors.
+● Data Quality & Integrity: Performed comprehensive data integrity assessments across enterprise systems, identifying and resolving discrepancies, duplications, and inconsistencies. Applied advanced Excel techniques to streamline data validation, ensuring consistent and accurate datasets aligned with business standards.
 
-● Technical Leadership: Served as the in-house MS Excel expert, building macros and custom pivot tables. Mentored
-coworkers on advanced automation solutions and effectively communicate complex technical concepts to
-non-technical stakeholders using flowcharts and diagrams.
+● Data Mining: Executed data mining and advanced analytics projects leveraging SQL and Python to generate actionable insights that influenced enterprise-level Cloud and Infrastructure strategy.
 
-● Issue Resolution: Independently drove initiatives, diagnosed complex issues, and implemented effective resolution
-strategies, maintaining robust data frameworks and ensuring completion of objectives.
+● Data Transformation & Analysis: Expertly curated, synthesized, and transformed intricate market operations data through Python scripting, guaranteeing data integrity and reliability for pivotal business insights.
 
-● Prompt Engineering: Leveraged AI to build innovative solutions for trading teams, directly contributing to increased
-operational efficiency, reduced manual errors, and more precise business insights and reporting.
+● Automation and Efficiency: Developed and implemented business-critical automations that enabled the Compliance team to meet stringent deadlines. Applied strong data governance practices to monitor data quality and streamline compensation processes through automated validation scripts, VBA macros, and scheduled ETL jobs.
+
+● RPA & Workflow Optimization: Designed and deployed UiPath Studio Pro robots and MS Power Automate flows yielding hundreds of hours of time savings and significantly reducing data entry errors.
+
+● Technical Leadership: Served as the in-house MS Excel expert, building macros and custom pivot tables. Mentored coworkers on advanced automation solutions and effectively communicated complex technical concepts to non-technical stakeholders using flowcharts and diagrams.
+
+● Requirements Engineering: Authored comprehensive Business Requirements Documents (BRDs) and Technical Requirements Documents (TRDs) to drive the design and implementation of automation solutions and ETL workflows, aligning cross-functional stakeholder needs with scalable, high-performance data pipelines and process optimizations.
+
+● Issue Resolution: Independently drove initiatives, diagnosed complex issues, and implemented effective resolution strategies, maintaining robust data frameworks and ensuring completion of objectives.
+
+● Strategic Liaison: Acted as a strategic liaison between engineering, cloud operations, and executive teams to ensure metrics aligned with business objectives and industry benchmarks. Identified process enhancement opportunities and collaborated with technology partners to implement solutions for improved efficiency and risk mitigation.
+
+● Prompt Engineering: Leveraged AI to build innovative solutions for trading teams, directly contributing to increased operational efficiency, reduced manual errors, and more precise business insights and reporting.
 """)
 
     st.write("\n")
@@ -246,10 +248,10 @@ if selected == "NFL Project - 2024 Stats":
                       labels={"Cmp_y": "Completions", "Yds": "Passing Yards", "Att_y": "Attempts"})
 
     fig4 = px.bar(filtered_df.sort_values('Sk', ascending=True), y="Team", x="Sk", orientation='h',
-                  title="Sacks per Team (Horizontal Bar)", color="Sk", color_continuous_scale="Reds")
+                  title="Sacks per Team", color="Sk", color_continuous_scale="Reds")
 
     fig5 = px.scatter(filtered_df.sort_values('Int_y', ascending=False), x="Team", y="Int_y", size="Int_y",
-                      title="Interceptions per Team (Bubble Style)", color="Team")
+                      title="Interceptions per Team", color="Team")
 
     st.plotly_chart(fig3)
     st.plotly_chart(fig1)
